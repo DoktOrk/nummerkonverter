@@ -27,28 +27,30 @@ var numKonverter = function(){
         var revertedToSayOut = reverser(numRevertedToString);
         
         var numStringBox = {
-            0: ["", "ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "", "elf", "zwölf", "dreizehn", "vierzehn", "fünfzehn", "sechszehn", "siebzehn", "achtzehn", "neunzehn"],
+            0: ["", "ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", ""],
             nn: ["", "zehn", "zwanzig", "dreizig", "vierzig", "fünfzig", "sechszig", "siebzig", "achtzig", "neunzig"],
-            1: ["", "zehn", "undzwanzig", "unddreizig", "undvierzig", "undfünfzig", "undsechszig", "undsiebzig", "undachtzig", "undneunzig"]
+            1: ["", "zehn", "undzwanzig", "unddreizig", "undvierzig", "undfünfzig", "undsechszig", "undsiebzig", "undachtzig", "undneunzig"],
+            2: ["null", "eins", "elf", "zwölf", "hundert", "tausend", "e Million ", " Millionen ", "e Milliarde ", " Milliarden "]
         };
         
         function toSayOut (numStringCopy) {
-            if (numStringCopy.length == 1){
+            var nSClength = numStringCopy.length;
+            if (nSClength == 1){
                     if (numStringCopy[0] == 0){
-                        stringedNumber = "null";
+                        stringedNumber = numStringBox[2][0];
                     }else if (numStringCopy[0] == 1){
-                        stringedNumber = "eins";
+                        stringedNumber = numStringBox[2][1];
                     }else{
                         stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
                     }
                     
-            }else if (numStringCopy.length == 2){
+            }else if(nSClength > 1){
                     if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
+                        stringedNumber = numStringBox[2][1];
                     }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
+                        stringedNumber = numStringBox[2][2];
                     }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
+                        stringedNumber = numStringBox[2][3];
                     }else if(numStringCopy[0] == 0){
                         stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
                         stringedNumber += numStringBox.nn[numStringCopy[1]];
@@ -56,82 +58,37 @@ var numKonverter = function(){
                         stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
                         stringedNumber += numStringBox[1][numStringCopy[1]];
                     }
-                
-            }else if (numStringCopy.length == 3){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
+                    
+                    if (nSClength == 2){
+                        return stringedNumber;
                     }
                 
                     if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
+                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + numStringBox[2][4] + stringedNumber.slice(0);
                     }else{
                         stringedNumber = stringedNumber;
                     }
                     
-            }else if (numStringCopy.length == 4){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
+                    if (nSClength == 3){
+                        return stringedNumber;
                     }
                 
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                    
                     var stringedNumberTausend = "";
-                    stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                
-                    if(stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }   
                     
-            }else if (numStringCopy.length == 5){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
+                    if (nSClength == 4){
+                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
+                            if(stringedNumberTausend != ""){
+                                stringedNumber = stringedNumberTausend + numStringBox[2][5] + stringedNumber;
+                            }else{
+                                stringedNumber = stringedNumber;
+                            }
+                        return stringedNumber;
                     }
                     
-                    var stringedNumberTausend = "";
                     if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
+                        stringedNumberTausend = numStringBox[2][2];
                     }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
+                        stringedNumberTausend = numStringBox[2][3];
                     }else if(numStringCopy[3] == 0){
                         stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
                         stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
@@ -140,163 +97,47 @@ var numKonverter = function(){
                         stringedNumberTausend += numStringBox[1][numStringCopy[4]];
                     }
                     
-                    if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                    
-            }else if (numStringCopy.length == 6){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                
-                    var stringedNumberTausend = "";
-                    if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
-                    }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
-                    }else if(numStringCopy[3] == 0){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox[1][numStringCopy[4]];
+                    if (nSClength == 5){
+                        if (stringedNumberTausend != ""){
+                            stringedNumber = stringedNumberTausend + numStringBox[2][5] + stringedNumber;
+                        }else{
+                            stringedNumberTausend = stringedNumberTausend;
+                        }
+                        return stringedNumber;
                     }
                     
                     if ([numStringCopy[5]] != "0"){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + "hundert" + stringedNumberTausend.slice(0);
+                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + numStringBox[2][4] + stringedNumberTausend.slice(0);
                     }else{
                         stringedNumberTausend = stringedNumberTausend;
                     }
                     if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
+                        stringedNumber = stringedNumberTausend + numStringBox[2][5] + stringedNumber;
                     }else{
                         stringedNumberTausend = stringedNumberTausend;
-                    }
-                
-            }else if (numStringCopy.length == 7){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                
-                    var stringedNumberTausend = "";
-                    if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
-                    }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
-                    }else if(numStringCopy[3] == 0){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox[1][numStringCopy[4]];
                     }
                     
-                    if ([numStringCopy[5]] != "0"){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + "hundert" + stringedNumberTausend.slice(0);
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                    if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
+                    if (nSClength == 6){
+                        return stringedNumber;
                     }
                 
                     var stringedNumberMillion = "";
-                    stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
-                
-                    if (numStringCopy[6] == "1"){
-                        stringedNumber = stringedNumberMillion + "e Million " + stringedNumber;
-                        return true;
-                    }else if(stringedNumberMillion != ""){
-                        stringedNumber = stringedNumberMillion + " Millionen " + stringedNumber;
-                        return true;
-                    }
-            
-            }else if (numStringCopy.length == 8){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                
-                    var stringedNumberTausend = "";
-                    if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
-                    }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
-                    }else if(numStringCopy[3] == 0){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox[1][numStringCopy[4]];
+                    
+                    if (nSClength == 7){
+                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
+                        if (numStringCopy[6] == "1"){
+                            stringedNumber = stringedNumberMillion + numStringBox[2][6] + stringedNumber;
+                            return stringedNumber;
+                        }else if(stringedNumberMillion != ""){
+                            stringedNumber = stringedNumberMillion + numStringBox[2][7] + stringedNumber;
+                            return stringedNumber;
+                        }return stringedNumber;
                     }
                     
-                    if ([numStringCopy[5]] != "0"){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + "hundert" + stringedNumberTausend.slice(0);
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                    if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                
-                    var stringedNumberMillion = "";
                     if(numStringCopy[6] == 1 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "elf";
+                        stringedNumberMillion = numStringBox[2][2];
                     }else if(numStringCopy[6] == 2 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "zwölf";
+                        stringedNumberMillion = numStringBox[2][3];
                     }else if(numStringCopy[6] == 0){
                         stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
                         stringedNumberMillion += numStringBox.nn[numStringCopy[7]];
@@ -304,152 +145,37 @@ var numKonverter = function(){
                         stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
                         stringedNumberMillion += numStringBox[1][numStringCopy[7]];
                     }
-                    if (stringedNumberMillion != ""){
-                        stringedNumber = stringedNumberMillion + " Millionen " + stringedNumber;
-                    }
-              
-            }else if (numStringCopy.length == 9){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                
-                    var stringedNumberTausend = "";
-                    if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
-                    }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
-                    }else if(numStringCopy[3] == 0){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox[1][numStringCopy[4]];
-                    }
                     
-                    if ([numStringCopy[5]] != "0"){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + "hundert" + stringedNumberTausend.slice(0);
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                    if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                
-                    var stringedNumberMillion = "";
-                    if(numStringCopy[6] == 1 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "elf";
-                    }else if(numStringCopy[6] == 2 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "zwölf";
-                    }else if(numStringCopy[6] == 0){
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
-                        stringedNumberMillion += numStringBox.nn[numStringCopy[7]];
-                    }else{
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
-                        stringedNumberMillion += numStringBox[1][numStringCopy[7]];
+                    if (nSClength == 8){
+                        if (stringedNumberMillion != ""){
+                            stringedNumber = stringedNumberMillion + numStringBox[2][7] + stringedNumber;
+                        }else{
+                            stringedNumber = stringedNumber;
+                        }
+                        return stringedNumber;
                     }
                     
                     if ([numStringCopy[8]] != "0"){
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[8]] + "hundert" + stringedNumberMillion.slice(0);
+                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[8]] + numStringBox[2][4] + stringedNumberMillion.slice(0);
                     }else{
                         stringedNumberMillion = stringedNumberMillion;
                     }
                     if (stringedNumberMillion != ""){
-                        stringedNumber = stringedNumberMillion + " Millionen " + stringedNumber;
-                    }
-              
-            }else if (numStringCopy.length == 10){
-                    if (numStringCopy[0] == 1 && numStringCopy[1] == 0){
-                        stringedNumber = "eins";
-                    }else if(numStringCopy[0] == 1 && numStringCopy[1] == 1){
-                        stringedNumber = "elf";
-                    }else if(numStringCopy[0] == 2 && numStringCopy[1] == 1){
-                        stringedNumber = "zwölf";
-                    }else if(numStringCopy[0] == 0){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox.nn[numStringCopy[1]];
-                    }else{
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[0]] + stringedNumber.slice(0);
-                        stringedNumber += numStringBox[1][numStringCopy[1]];
-                    }
-                
-                    if ([numStringCopy[2]] != "0"){
-                        stringedNumber = stringedNumber.slice(0, 0) + numStringBox[0][numStringCopy[2]] + "hundert" + stringedNumber.slice(0);
-                    }else{
-                        stringedNumber = stringedNumber;
-                    }
-                
-                    var stringedNumberTausend = "";
-                    if(numStringCopy[3] == 1 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "elf";
-                    }else if(numStringCopy[3] == 2 && numStringCopy[4] == 1){
-                        stringedNumberTausend = "zwölf";
-                    }else if(numStringCopy[3] == 0){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox.nn[numStringCopy[4]];
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[3]] + stringedNumberTausend.slice(0);
-                        stringedNumberTausend += numStringBox[1][numStringCopy[4]];
+                        stringedNumber = stringedNumberMillion + numStringBox[2][7] + stringedNumber;
                     }
                     
-                    if ([numStringCopy[5]] != "0"){
-                        stringedNumberTausend = stringedNumberTausend.slice(0, 0) + numStringBox[0][numStringCopy[5]] + "hundert" + stringedNumberTausend.slice(0);
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                    if (stringedNumberTausend != ""){
-                        stringedNumber = stringedNumberTausend + "tausend" + stringedNumber;
-                    }else{
-                        stringedNumberTausend = stringedNumberTausend;
-                    }
-                
-                    var stringedNumberMillion = "";
-                    if(numStringCopy[6] == 1 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "elf";
-                    }else if(numStringCopy[6] == 2 && numStringCopy[7] == 1){
-                        stringedNumberMillion = "zwölf";
-                    }else if(numStringCopy[6] == 0){
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
-                        stringedNumberMillion += numStringBox.nn[numStringCopy[7]];
-                    }else{
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[6]] + stringedNumberMillion.slice(0);
-                        stringedNumberMillion += numStringBox[1][numStringCopy[7]];
-                    }
-                    
-                    if ([numStringCopy[8]] != "0"){
-                        stringedNumberMillion = stringedNumberMillion.slice(0, 0) + numStringBox[0][numStringCopy[8]] + "hundert" + stringedNumberMillion.slice(0);
-                    }else{
-                        stringedNumberMillion = stringedNumberMillion;
-                    }
-                    if (stringedNumberMillion != ""){
-                        stringedNumber = stringedNumberMillion + " Millionen " + stringedNumber;
+                    if (nSClength == 9){
+                        return stringedNumber;
                     }
                     
                     var stringedNumberMilliarde = "";
                     stringedNumberMilliarde = stringedNumberMilliarde.slice(0, 0) + numStringBox[0][numStringCopy[9]] + stringedNumberMilliarde.slice(0);
                     
                     if (numStringCopy[9] == "1"){
-                        stringedNumber = stringedNumberMilliarde + "e Milliarde " + stringedNumber;
+                        stringedNumber = stringedNumberMilliarde + numStringBox[2][8] + stringedNumber;
                         return true;
                     }else if(stringedNumberMilliarde != ""){
-                        stringedNumber = stringedNumberMilliarde + " Milliarden " + stringedNumber;
+                        stringedNumber = stringedNumberMilliarde + numStringBox[2][9] + stringedNumber;
                         return true;
                     }
                     
