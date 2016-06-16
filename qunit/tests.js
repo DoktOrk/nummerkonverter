@@ -8,3 +8,15 @@ QUnit.test("nummerkonverter test1", function(assert) {
         assert.equal(numKonverter(testStringBox[0][i]), testStringBox[1][i], "Test" + (i+1) + ": Passed!");
     }
 });
+
+
+var negativeTestStringBox = {
+    0: ["222222.22222", "222222,22222", "43a543", "00000000001"],
+    1: ["zweihundertzweiundzwanzigtausendzweihundertzweiundzwanzig", "zweihundertzweiundzwanzigtausendzweihundertzweiundzwanzig", "false", "eins"]
+};
+
+QUnit.test("nummerkonverter negative test1", function(assert) {
+    for (var i = 0; negativeTestStringBox[0].length > i; i++){
+        assert.equal(numKonverter(negativeTestStringBox[0][i]), negativeTestStringBox[1][i], "Negative test" + (i+1) + "!");
+    }
+});
