@@ -1,5 +1,5 @@
 # German numberconverter
-### This program converts numbers under 1000000000 to text.
+### This program converts numbers under 1000000000 to german text.
 
 #### I used [QUnit](https://qunitjs.com/) for testing.
 
